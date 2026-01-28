@@ -1,12 +1,26 @@
 # Restaurant Picking API
-A Spring Boot backend service that allows predefined users to create sessions, collect restaurant suggestions, and randomly select a final restaurant.
-
+A Spring Boot application that allows users to create “restaurant picking sessions,” invite other users, submit restaurant choices, and randomly select a restaurant when the session ends.
 ## Features
-- Create a restaurant voting session (predefined users only)
-- Generate secure session token
-- Add restaurants to an open session
-- Lock session and randomly pick a restaurant (First Submitter only)
-- Retrieve session and restaurant details
+
+- User Management
+  - Pre-defined users are loaded on application startup.
+  - Only pre-defined users are allowed to initiate a session.
+
+- Session Lifecycle
+  - Users can create a session.
+  - Session owners can invite other users to join the session.
+  - Session owners can end the session, which triggers a random restaurant selection.
+  - Users cannot join a session once it has ended.
+
+- Restaurant Submission
+  - Joined users can submit restaurants to the session.
+  - Users can view all restaurants submitted by participants during the session.
+  - The randomly picked restaurant becomes visible to all session users after the session ends.
+
+- Authorization & Validation
+  - Only the session owner is allowed to end the session.
+  - Users can only submit or view restaurants if they are participants in the session.
+  - Unique constraints ensure users cannot join the same session twice and prevent duplicate restaurant submissions.
 
 ## Getting Started
 
