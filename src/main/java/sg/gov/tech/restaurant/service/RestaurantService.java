@@ -10,6 +10,7 @@ import sg.gov.tech.restaurant.model.SessionRestaurant;
 import sg.gov.tech.restaurant.repository.RestaurantRepository;
 import sg.gov.tech.restaurant.repository.SessionParticipantRepository;
 import sg.gov.tech.restaurant.repository.SessionRestaurantRepository;
+import sg.gov.tech.restaurant.utils.GeoValidator;
 
 import java.security.SecureRandom;
 import java.time.Instant;
@@ -64,6 +65,11 @@ public class RestaurantService {
         double latitude = addRestaurantRequest.getLatitude();
         double longitude = addRestaurantRequest.getLongitude();
         String submittedBy = addRestaurantRequest.getSubmittedBy();
+
+        if (!GeoValidator.isValidCoordinate(latitude, longitude)) {
+            throw new IllegalArgumentException("Invalid latitude or longitude");
+        }
+
         if(!sessionParticipantRepository.existsBySessionIdAndUsername(session.getSessionID(), submittedBy)) {
             throw new IllegalStateException("User is not part of the session");
         }
@@ -162,8 +168,6 @@ public class RestaurantService {
 
     /**
      * Retrieves all restaurants submitted for a given session.
-     *
-     * This endpoint is read-only and does not depend on session state.
      *
      * @param session Session
      * @return List of restaurants submitted to the session

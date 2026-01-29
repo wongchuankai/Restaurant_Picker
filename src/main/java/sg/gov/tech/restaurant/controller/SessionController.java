@@ -78,6 +78,12 @@ public class SessionController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * allows user to join a valid open session.
+     * @param sessionToken
+     * @param request
+     * @return
+     */
     @PostMapping("/{sessionToken}/join")
     public ResponseEntity<SessionResponse > joinSession(
             @PathVariable String sessionToken, @RequestBody UsernameRequest request) {
@@ -90,7 +96,7 @@ public class SessionController {
     }
 
     /**
-     * Randomly select a restaurant and session will be locked after.
+     * Randomly select a restaurant and session will be locked after. only allow user who initiated session to end
      * @param sessionToken
      * @param request
      * @return
@@ -111,8 +117,8 @@ public class SessionController {
     }
 
     /**
-     * Submit a restaurant to a specific session.
-     * Submissions are rejected if a random choice has already been made.
+     * Submit a restaurant to a session.
+     * Submissions are rejected if session is locked.
      *
      * @param sessionToken session token
      * @param request   JSON body containing username and restaurant name
@@ -130,7 +136,7 @@ public class SessionController {
     }
 
     /**
-     * List all restaurants submitted to a session using session token.
+     * List all restaurants submitted to a session using session token. User has to be part of the session
      *
      * @param sessionToken session token
      * @return List of RestaurantEntry objects for the session
@@ -146,7 +152,7 @@ public class SessionController {
     }
 
     /**
-     * List all restaurants submitted to a session using session token.
+     * List all restaurants submitted to a session using session token. User has to be part of the session
      *
      * @param sessionToken session token
      * @return List of RestaurantEntry objects for the session
