@@ -20,7 +20,7 @@ A Spring Boot application that allows users to create “restaurant picking sess
 - Authorization & Validation
   - Only the session owner is allowed to end the session.
   - Users can only submit or view restaurants if they are participants in the session.
-  - Unique constraints ensure users cannot join the same session twice and prevent duplicate restaurant submissions.
+  - Unique constraints ensure users cannot join the same session twice.
 
 ## Getting Started
 
